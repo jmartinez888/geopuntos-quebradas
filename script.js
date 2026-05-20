@@ -165,3 +165,24 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         renderList(filter);
     });
 });
+
+// Cargar y renderizar la capa del polígono de Loreto
+fetch('loreto.geojson')
+    .then(response => response.json())
+    .then(data => {
+        // Creamos la capa GeoJSON
+        const loretoLayer = L.geoJSON(data, {
+            style: {
+                color: '#10b981', // Color primario (esmeralda)
+                weight: 2,
+                opacity: 0.6,
+                fillColor: '#10b981',
+                fillOpacity: 0.05,
+                dashArray: '4, 4'
+            }
+        }).addTo(map);
+        
+        // Enviamos la capa del polígono al fondo para que no cubra los marcadores
+        loretoLayer.bringToBack();
+    })
+    .catch(error => console.error("Error al cargar el polígono de Loreto:", error));
