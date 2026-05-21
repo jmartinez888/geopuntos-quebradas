@@ -44,7 +44,7 @@ const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/s
 // Inicializar el mapa
 const map = L.map('map', {
     center: [-3.85, -73.35], // Centro inicial aproximado en Iquitos
-    zoom: 11,
+    zoom: 6,
     layers: [osmLayer]
 });
 
@@ -104,8 +104,8 @@ function renderMarkers(filter = 'all') {
         markers[q.id] = marker; // Guardar referencia para interactuar desde la lista
     });
 
-    // Ajustar el zoom para que se vean todos los puntos filtrados
-    if (Object.keys(markersGroup._layers).length > 0) {
+    // Ajustar el zoom para que se vean todos los puntos filtrados (solo si usamos un filtro)
+    if (Object.keys(markersGroup._layers).length > 0 && filter !== 'all') {
         map.fitBounds(markersGroup.getBounds(), { padding: [50, 50] });
     }
 }
@@ -170,17 +170,20 @@ if (typeof loretoGeoJSON !== 'undefined') {
     // Creamos la capa GeoJSON
     const loretoLayer = L.geoJSON(loretoGeoJSON, {
         style: {
-            color: '#10b981', // Color primario (esmeralda)
-            weight: 2,
-            opacity: 0.6,
-            fillColor: '#10b981',
-            fillOpacity: 0.05,
-            dashArray: '4, 4'
+            color: '#064e3b', // Verde oscuro para el borde
+            weight: 3,
+            opacity: 0.8,
+            fillColor: '#047857', // Relleno verde esmeralda
+            fillOpacity: 0.4,
+            dashArray: '' // Línea continua
         }
     }).addTo(map);
     
     // Enviamos la capa del polígono al fondo para que no cubra los marcadores
     loretoLayer.bringToBack();
+
+    // Ajustar el zoom inicial del mapa para que se vea todo Loreto
+    map.fitBounds(loretoLayer.getBounds(), { padding: [20, 20] });
 } else {
     console.error("No se encontró la variable loretoGeoJSON. Asegúrate de incluir loreto.js en el HTML.");
 }
