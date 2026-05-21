@@ -47,24 +47,25 @@ quebradas.forEach(q => {
     const marker = L.marker([q.lat, q.lng], { icon: greenIcon }).addTo(map);
     
     // Configuración condicional para evitar que los nombres se superpongan
+    // Ampliamos el offset (distancia) para que el triángulo no se superponga al círculo verde
     let dir = 'right';
-    let offset = [0, 0];
+    let offset = [12, 0];
 
     if (q.nombre === 'Quebrada San Pedro') {
         dir = 'left';
-        offset = [-5, 0];
+        offset = [-12, 0];
     } else if (q.nombre === 'Quebrada Santa Cruz') {
         dir = 'bottom';
-        offset = [0, 5];
+        offset = [0, 12];
     } else if (q.nombre === 'Quebrada Tambishi') {
         dir = 'top';
-        offset = [0, -5];
+        offset = [0, -12];
     } else if (q.nombre === 'Quebrada Agua negra') {
         dir = 'top';
-        offset = [0, -5];
+        offset = [0, -12];
     } else if (q.nombre === 'Quebrada Llanchama') {
         dir = 'right';
-        offset = [5, 0];
+        offset = [12, 0];
     }
 
     marker.bindTooltip(q.nombre, { 
