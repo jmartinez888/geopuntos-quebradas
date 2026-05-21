@@ -4,62 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa de Quebradas - San Juan Bautista</title>
-    <meta name="description" content="Mapa interactivo de las quebradas evaluadas en San Juan Bautista, Maynas, Loreto.">
     
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="header-content">
-                <h1>Geopuntos Loreto</h1>
-                <p>Ubicación geográfica de las quebradas evaluadas en San Juan Bautista, Maynas.</p>
-            </div>
-            <div class="header-stats">
-                <div class="stat-box">
-                    <span class="stat-number">10</span>
-                    <span class="stat-label">Quebradas</span>
-                </div>
-            </div>
-        </header>
-
-        <main class="main-content">
-            <div class="sidebar">
-                <div class="sidebar-header">
-                    <h2>Lista de Quebradas</h2>
-                    <div class="filter-group">
-                        <button class="filter-btn active" data-filter="all">Todas</button>
-                        <button class="filter-btn" data-filter="fluvial">Fluvial</button>
-                        <button class="filter-btn" data-filter="carretera">Carretera</button>
-                    </div>
-                </div>
-                <ul class="quebradas-list" id="quebradas-list">
-                    <!-- List will be populated by JS -->
-                </ul>
+    <div class="map-dashboard">
+        <!-- Panel Izquierdo: Mapa Principal -->
+        <div class="main-map-panel">
+            <div id="map"></div>
+        </div>
+        
+        <!-- Panel Derecho: Mapas de Ubicación y Leyenda -->
+        <div class="side-panel">
+            <!-- Minimapa Perú -->
+            <div class="minimap-box">
+                <h3 class="minimap-title">PERÚ</h3>
+                <div id="minimap-peru" class="minimap"></div>
             </div>
             
-            <div class="map-container">
-                <div id="map"></div>
+            <!-- Minimapa Loreto -->
+            <div class="minimap-box">
+                <h3 class="minimap-title">REGIÓN LORETO</h3>
+                <div id="minimap-loreto" class="minimap"></div>
             </div>
-        </main>
+            
+            <!-- Leyenda -->
+            <div class="legend-box">
+                <h3 class="minimap-title">LEYENDA</h3>
+                <ul class="legend-list">
+                    <li><span class="legend-icon box-red"></span> Zona de muestreo</li>
+                    <li><span class="legend-icon box-blue"></span> Reserva Nacional Allpahuayo-Mishana</li>
+                    <li><span class="legend-icon circle-blue"></span> Puntos de colecta (Fluvial)</li>
+                    <li><span class="legend-icon circle-orange"></span> Puntos de colecta (Carretera)</li>
+                    <li><span class="legend-icon circle-black"></span> Centros Poblados</li>
+                    <li><span class="legend-icon line-blue"></span> Quebradas y/o riachos</li>
+                    <li><span class="legend-icon line-brown"></span> Carreteras</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <!-- Proj4js for coordinate conversion -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
     
     <!-- Datos GeoJSON -->
+    <script src="peru.js"></script>
     <script src="loreto.js"></script>
+    
     <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
