@@ -76,6 +76,19 @@ quebradas.forEach(q => {
         offset: offset,
         className: 'map-label' 
     });
+
+    // Agregar detalles al hacer clic (Popup)
+    marker.bindPopup(`
+        <div style="font-family: Arial, sans-serif; font-size: 13px; line-height: 1.5; min-width: 200px;">
+            <h3 style="margin: 0 0 8px 0; color: #0f172a; border-bottom: 1px solid #ccc; padding-bottom: 4px;">${q.nombre}</h3>
+            <b>Vía de acceso:</b> ${q.via}<br>
+            <b>Coordenadas UTM:</b> X: ${q.x} | Y: ${q.y}<br>
+            <b>Distrito:</b> San Juan Bautista<br>
+            <b>Provincia:</b> Maynas<br>
+            <b>Región/Localidad:</b> Loreto
+        </div>
+    `);
+
     bounds.extend([q.lat, q.lng]);
 });
 
