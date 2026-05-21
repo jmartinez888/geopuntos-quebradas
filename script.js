@@ -45,7 +45,34 @@ const bounds = L.latLngBounds();
 // Dibujar Quebradas (Puntos verdes)
 quebradas.forEach(q => {
     const marker = L.marker([q.lat, q.lng], { icon: greenIcon }).addTo(map);
-    marker.bindTooltip(q.nombre, { permanent: true, direction: 'right', className: 'map-label' });
+    
+    // Configuración condicional para evitar que los nombres se superpongan
+    let dir = 'right';
+    let offset = [0, 0];
+
+    if (q.nombre === 'Quebrada San Pedro') {
+        dir = 'left';
+        offset = [-5, 0];
+    } else if (q.nombre === 'Quebrada Santa Cruz') {
+        dir = 'bottom';
+        offset = [0, 5];
+    } else if (q.nombre === 'Quebrada Tambishi') {
+        dir = 'top';
+        offset = [0, -5];
+    } else if (q.nombre === 'Quebrada Agua negra') {
+        dir = 'top';
+        offset = [0, -5];
+    } else if (q.nombre === 'Quebrada Llanchama') {
+        dir = 'right';
+        offset = [5, 0];
+    }
+
+    marker.bindTooltip(q.nombre, { 
+        permanent: true, 
+        direction: dir, 
+        offset: offset,
+        className: 'map-label' 
+    });
     bounds.extend([q.lat, q.lng]);
 });
 
