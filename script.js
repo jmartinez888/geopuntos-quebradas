@@ -30,10 +30,9 @@ const quebradas = data.map(item => {
     };
 });
 
-// Mapas Base
-const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-    subdomains: 'abcd',
+// Mapas Base (OpenStreetMap usa idioma local, en este caso español para Perú)
+const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 20
 });
 
@@ -46,12 +45,12 @@ const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/s
 const map = L.map('map', {
     center: [-3.85, -73.35], // Centro inicial aproximado en Iquitos
     zoom: 11,
-    layers: [cartoVoyager]
+    layers: [osmLayer]
 });
 
 // Control de capas base
 const baseMaps = {
-    "Mapa Claro (Calles)": cartoVoyager,
+    "Mapa Claro (Calles)": osmLayer,
     "Satélite (Terreno)": esriSatellite
 };
 L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
@@ -166,23 +165,22 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// Cargar y renderizar la capa del polígono de Loreto
-fetch('loreto.geojson')
-    .then(response => response.json())
-    .then(data => {
-        // Creamos la capa GeoJSON
-        const loretoLayer = L.geoJSON(data, {
-            style: {
-                color: '#10b981', // Color primario (esmeralda)
-                weight: 2,
-                opacity: 0.6,
-                fillColor: '#10b981',
-                fillOpacity: 0.05,
-                dashArray: '4, 4'
-            }
-        }).addTo(map);
-        
-        // Enviamos la capa del polígono al fondo para que no cubra los marcadores
-        loretoLayer.bringToBack();
-    })
-    .catch(error => console.error("Error al cargar el polígono de Loreto:", error));
+// Renderizar la capa del polígono de Loreto desde el archivo js incluido
+if (typeof loretoGeoJSON !== 'undefined') {
+    // Creamos la capa GeoJSON
+    const loretoLayer = L.geoJSON(loretoGeoJSON, {
+        style: {
+            color: '#10b981', // Color primario (esmeralda)
+            weight: 2,
+            opacity: 0.6,
+            fillColor: '#10b981',
+            fillOpacity: 0.05,
+            dashArray: '4, 4'
+        }
+    }).addTo(map);
+    
+    // Enviamos la capa del polígono al fondo para que no cubra los marcadores
+    loretoLayer.bringToBack();
+} else {
+    console.error("No se encontró la variable loretoGeoJSON. Asegúrate de incluir loreto.js en el HTML.");
+}
