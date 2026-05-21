@@ -110,8 +110,16 @@ body {
     border: 1px solid #5a60c0;
 }
 
-.circle-green {
-    background: #10b981;
+.circle-blue {
+    background: #3b82f6;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin-left: 3px;
+}
+
+.circle-orange {
+    background: #f59e0b;
     border-radius: 50%;
     width: 18px;
     height: 18px;
@@ -150,10 +158,17 @@ body {
 }
 
 /* Tooltips y DivIcons */
-.green-marker {
-    background-color: #10b981;
+.blue-marker {
+    background-color: #3b82f6;
     border-radius: 50%;
-    border: 1px solid #064e3b;
+    border: 1px solid #1e3a8a;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+.orange-marker {
+    background-color: #f59e0b;
+    border-radius: 50%;
+    border: 1px solid #78350f;
     box-shadow: 0 0 2px rgba(0,0,0,0.5);
 }
 

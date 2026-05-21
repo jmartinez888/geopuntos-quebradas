@@ -37,14 +37,16 @@ const map = L.map('map', {
 });
 
 // Iconos
-const greenIcon = L.divIcon({ className: 'green-marker', iconSize: [14, 14], iconAnchor: [7, 7] });
+const blueIcon = L.divIcon({ className: 'blue-marker', iconSize: [14, 14], iconAnchor: [7, 7] });
+const orangeIcon = L.divIcon({ className: 'orange-marker', iconSize: [14, 14], iconAnchor: [7, 7] });
 const cityIcon = L.divIcon({ className: 'city-marker', iconSize: [10, 10], iconAnchor: [5, 5] });
 
 const bounds = L.latLngBounds();
 
-// Dibujar Quebradas (Puntos verdes)
+// Dibujar Quebradas (Diferenciar por vía de acceso)
 quebradas.forEach(q => {
-    const marker = L.marker([q.lat, q.lng], { icon: greenIcon }).addTo(map);
+    const pointIcon = q.via.toLowerCase().includes('fluvial') ? blueIcon : orangeIcon;
+    const marker = L.marker([q.lat, q.lng], { icon: pointIcon }).addTo(map);
     
     // Configuración condicional para evitar que los nombres se superpongan
     // Ampliamos el offset (distancia) para que el triángulo no se superponga al círculo verde
